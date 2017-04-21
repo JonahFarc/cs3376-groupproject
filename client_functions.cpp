@@ -63,7 +63,6 @@ int clientConnect_udp(char* host, int portno, void callback(int, sockaddr_in)) {
 
 void sendMessageToServer_tcp(int sockfd) {
 	char buf[256];
-	while (1) {
     	printf("Please enter the message: ");
     	bzero(buf, 256);
     	fgets(buf, 255, stdin);
@@ -75,14 +74,12 @@ void sendMessageToServer_tcp(int sockfd) {
 		else if (response == 0)
 			break;
 		printf("Recieved echo back: %s", buf);
-	}
     close(sockfd);
 }
 
 void sendMessageToServer_udp(int sockfd, sockaddr_in server) {
 	char buf[256];
 	socklen_t clilen = sizeof(sockaddr_in);
-	while(1) {
     	printf("Please enter the message: ");
     	bzero(buf, 256);
     	fgets(buf, 255, stdin);
@@ -94,6 +91,5 @@ void sendMessageToServer_udp(int sockfd, sockaddr_in server) {
 		else if (response == 0)
 			break;
 		printf("Recieved echo back: %s", buf);
-	}
     close(sockfd);
 }
