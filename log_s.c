@@ -1,8 +1,3 @@
-//
-//
-//
-//
-//
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -15,7 +10,7 @@
 #include <arpa/inet.h>
 #include <time.h>
 
-int main(){
+int startLogServer(int portno){
 	int sockfd;
 	struct sockaddr_in serv_addr;
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
@@ -24,19 +19,13 @@ int main(){
 	bzero((char *) &serv_addr, sizeof(serv_addr));
 	serv_addr.sin_family = AF_INET;
 	serv_addr.sin_addr.s_addr = INADDR_ANY;
-	serv_addr.sin_port = htons(9999);
+	serv_addr.sin_port = htons(portno);
 	if(bind(sockfd,(struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
 	  error("ERROR BINDIN UDP FOR LOG SERVER");
 	
 	udp_loop(sockfd);
 	
 	close(sockfd);
-}
-
-void error(const char *msg)
-{
-      perror(msg);
-      exit(1);
 }
 
 void *SigCatcher(int n)
@@ -68,7 +57,7 @@ void writetofile(char buf[1024])
 	fw = fopen("echo.log", "a");
 	time_t ti = time(NULL);
 	struct tm t = *localtime(&ti);
-	fprintf(fw,"%d-%d-%d %d:%d:%d\t%s", t.tm_year+1900, t.tm_mon+1, t.tm_mday, t.tm_hour, t.tm_min, t.tm_sec, buf);
+	fprintf(fw,"%d-%d-%d %d:%d:%d\t\"%s\n", t.tm_year+1900, t.tm_mon+1, t.tm_mday, t.tm_hour, t.tm_min, t.tm_sec, buf);
 	fclose(fw);
 }
 
