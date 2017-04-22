@@ -1,6 +1,6 @@
 #include "server_functions.c"
 #include "log_s.c"
-#define LOGPORT 9999
+#define LOGPORT 9998
 
 int echoResult_tcp(char buf[256], int sockfd, struct sockaddr_in response) {
 	int sockfd_log;
@@ -64,16 +64,16 @@ int echoResult_udp(char buf[256], int sockfd, struct sockaddr_in response) {
 int main(int argc, char *argv[])
 {
 	if (argc > 4 || argc < 2) {
-		error("Please provide up to 3 ports to monitor like so: ./server port1 [port2 port3]");
+		error("Please provide up to 3 ports to monitor like so: ./server port1 port2 port3 (eg. ./server 1000, 1001, 1002)");
 		return 1;
 	}
 	if (fork() == 0)
 		startLogServer(LOGPORT);
-	else if (argc > 2 && fork() == 0)
+	else if (fork() == 0)
 		startServer(atoi(argv[1]), echoResult_tcp, echoResult_udp);
-	else if (argc > 3 && fork() == 0)
+	else if (argc>2 && fork() == 0)
 		startServer(atoi(argv[2]), echoResult_tcp, echoResult_udp);
-	else
+	else if (argc>3)
 		startServer(atoi(argv[3]), echoResult_tcp, echoResult_udp);
     return 0; 
 }
