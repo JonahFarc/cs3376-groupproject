@@ -69,11 +69,11 @@ int main(int argc, char *argv[])
 	}
 	if (fork() == 0)
 		startLogServer(LOGPORT);
-	else if (fork() == 0)
-		startServer(atoi(argv[1]), echoResult_tcp, echoResult_udp);
-	else if (argc>2 && fork() == 0)
-		startServer(atoi(argv[2]), echoResult_tcp, echoResult_udp);
-	else if (argc>3)
+	else if (argc > 3 && fork() == 0)
 		startServer(atoi(argv[3]), echoResult_tcp, echoResult_udp);
+	else if (argc > 2 && fork() == 0)
+		startServer(atoi(argv[2]), echoResult_tcp, echoResult_udp);
+	else
+		startServer(atoi(argv[1]), echoResult_tcp, echoResult_udp);
     return 0; 
 }
