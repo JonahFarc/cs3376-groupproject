@@ -19,6 +19,7 @@ void error(const char *msg)
     exit(0);
 }
 
+//TD: connects the client for TCP
 int clientConnect_tcp(char* host, int portno, void callback(int)) {
 	int sockfd;
     struct sockaddr_in serv_addr;

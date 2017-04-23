@@ -15,10 +15,12 @@
 #include <arpa/inet.h>
 #include <time.h>
 
+//TD: starts the log server (UDP) upon being called on in the server
 int startLogServer(int portno){
 	int sockfd;
 	struct sockaddr_in serv_addr;
 	sockfd = socket(AF_INET, SOCK_STREAM, 0);
+	//TD: prints error if it cannot open the UDP socket
 	if(sockfd < 0) error("ERROR OPENING UDP SOCKET FOR LOG SERVER");
 	sockfd = socket(AF_INET, SOCK_DGRAM, 0);
 	bzero((char *) &serv_addr, sizeof(serv_addr));
@@ -27,12 +29,13 @@ int startLogServer(int portno){
 	serv_addr.sin_port = htons(portno);
 	if(bind(sockfd,(struct sockaddr *) &serv_addr, sizeof(serv_addr)) < 0)
 	  error("ERROR BINDIN UDP FOR LOG SERVER");
-	
+	//TD: continuous loop that will receieve UDP messages
 	udp_loop(sockfd);
 	
 	close(sockfd);
 }
 
+//TD: handles zombies
 void *SigCatcher(int n)
 {
   wait3(NULL,WNOHANG,NULL);
@@ -50,6 +53,7 @@ void udp_loop(int udp_sockfd)
 	   n = recvfrom(udp_sockfd,buf,1024,0,(struct sockaddr *)&from,&fromlen);
 	   if(n<0) error("ERROR recvfrom");
 	   write(1,buf,n);
+	   //TD: writes to the echo.log file and passes the message
 	   writetofile(buf);
 	   if(n<0) error("ERROR sendto");
 		     signal(SIGCHLD,SigCatcher);

@@ -48,9 +48,10 @@ void sendMessageToServer_udp(int sockfd, struct sockaddr_in server) {
 
 int main(int argc, char *argv[])
 {
+  	//TD: checks to make sure user has given all arguments
 	if (argc != 4)
 		error("Please enter the host, port number, and protocol, like so: ./client host port protocol (ex: ./client cs2 30000 udp)");
-	if (strcmp(argv[3], "udp") == 0)
+	if (strcmp(argv[3], "udp") == 0) //TD: checks for TCP or UDP and sends to appropriate method
 		clientConnect_udp(argv[1], atoi(argv[2]), sendMessageToServer_udp);
 	else if (strcmp(argv[3], "tcp") == 0)
 		clientConnect_tcp(argv[1], atoi(argv[2]), sendMessageToServer_tcp);

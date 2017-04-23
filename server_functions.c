@@ -34,6 +34,7 @@ void exitTCPServer(int sig) {
 	exit(0);
 }
 
+//TD: initializes the TCP and UDP sockets
 void intializeSockets(int *socktcp, int *sockudp) {
 	if ((*socktcp = socket(AF_INET, SOCK_STREAM, 0)) < 0)
 		error("ERROR opening socket");
