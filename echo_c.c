@@ -3,12 +3,13 @@
 // date: 04/20/2017
 // purpose: CS 3376 - 502
 // description: A simple client in the internet domain using TCP/UDP
-// The hostname, portnumber, and protocol are passed as arguments
+// The hostname, port number, and protocol are passed as arguments
 
 #include "client_functions.c"
 
 //Sends messages to the server using TCP until terminated -DY
-void sendMessageToServer_tcp(int sockfd) {
+void sendMessageToServer_tcp(int sockfd) 
+{
 	char buf[256];
 	while (1) {
     	printf("Please enter the message: ");
@@ -26,8 +27,9 @@ void sendMessageToServer_tcp(int sockfd) {
     close(sockfd);
 }
 
-//sends messages to the server using UDP until terminated -DY
-void sendMessageToServer_udp(int sockfd, struct sockaddr_in server) {
+//Sends messages to the server using UDP until terminated -DY
+void sendMessageToServer_udp(int sockfd, struct sockaddr_in server) 
+{
 	char buf[256];
 	socklen_t clilen = sizeof(struct sockaddr_in);
 	while(1) {
@@ -51,12 +53,12 @@ int main(int argc, char *argv[])
   	//TD: checks to make sure user has given all arguments
 	if (argc != 4)
 		error("Please enter the host, port number, and protocol, like so: ./client host port protocol (ex: ./client cs2 30000 udp)");
-	if (strcmp(argv[3], "udp") == 0) //TD: checks for TCP or UDP and sends to appropriate method
+	//TD: checks for TCP or UDP and sends to appropriate method
+	if (strcmp(argv[3], "udp") == 0) 
 		clientConnect_udp(argv[1], atoi(argv[2]), sendMessageToServer_udp);
 	else if (strcmp(argv[3], "tcp") == 0)
 		clientConnect_tcp(argv[1], atoi(argv[2]), sendMessageToServer_tcp);
 	else
 		error("Please enter the host, port number, and protocol, like so: ./client host port protocol (ex: ./client cs2 30000 udp)");
-
     return 0;
 }
