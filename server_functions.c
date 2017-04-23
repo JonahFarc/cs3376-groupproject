@@ -22,7 +22,7 @@ void error(const char *msg)
     exit(1);
 }
 
-//SA: Gets all server TCP forks and terminates them 
+//SA/JA: Gets all server TCP forks and terminates them 
 void exitTCPServer(int sig) 
 {
 	static int pids[10] = {0};
@@ -56,7 +56,7 @@ void initializeAddrStruct(struct sockaddr_in *serv_addr, int portno)
 	(*serv_addr).sin_port = htons(portno);
 }
 
-//SA: Binds all addresses to their respective sockets. Throws error if binding fails
+//SA/JA: Binds all addresses to their respective sockets. Throws error if binding fails
 void bindAll(int *sockfd_tcp, int *sockfd_udp, struct sockaddr_in *serv_addr) 
 {
 	if (bind(*sockfd_tcp, (struct sockaddr *) serv_addr,
@@ -67,7 +67,7 @@ void bindAll(int *sockfd_tcp, int *sockfd_udp, struct sockaddr_in *serv_addr)
 		  error("ERROR on binding");
 }
 
-//SA: First opens a UDP socket and then handles initializing the socket address structure 
+//SA/JA: First opens a UDP socket and then handles initializing the socket address structure 
 // with the port# passed in
 void setupLogServer(int *sockudp, struct sockaddr_in *serv_addr, int portno) 
 {
