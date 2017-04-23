@@ -1,7 +1,16 @@
+// file: echo_s.c
+// authors: DY TD SW SA AK JA
+// date: 04/20/2017
+// purpose: CS 3376 - 502
+// description: A server that communicates in the internet domain using TCP/UDP
+// It echos the message sent, and sends that to a log server
+// It can take up to 3 ports to listen to.
+
 #include "server_functions.c"
 #include "log_s.c"
 #define LOGPORT 9997
 
+//echos back a response upon receiving a tcp message -DY
 int echoResult_tcp(char buf[256], int sockfd, struct sockaddr_in response) {
 	int sockfd_log;
 	struct sockaddr_in log_addr;
@@ -32,6 +41,7 @@ int echoResult_tcp(char buf[256], int sockfd, struct sockaddr_in response) {
 	return 0;
 }
 
+//echos back a response upon receiving a UDP message -DY
 int echoResult_udp(char buf[256], int sockfd, struct sockaddr_in response) {
 	int sockfd_log;
 	struct sockaddr_in log_addr;

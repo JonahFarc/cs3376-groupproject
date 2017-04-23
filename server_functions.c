@@ -1,3 +1,9 @@
+// file: server_functions.c
+// authors: DY TD SW SA AK JA
+// date: 04/20/2017
+// purpose: CS 3376 - 502
+// description: Contains functions necessary for the echo server
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>

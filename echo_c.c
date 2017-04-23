@@ -1,5 +1,13 @@
+// file: echo_c.c
+// authors: DY TD SW SA AK JA
+// date: 04/20/2017
+// purpose: CS 3376 - 502
+// description: A simple client in the internet domain using TCP/UDP
+// The hostname, portnumber, and protocol are passed as arguments
+
 #include "client_functions.c"
 
+//Sends messages to the server using TCP until terminated -DY
 void sendMessageToServer_tcp(int sockfd) {
 	char buf[256];
 	while (1) {
@@ -18,6 +26,7 @@ void sendMessageToServer_tcp(int sockfd) {
     close(sockfd);
 }
 
+//sends messages to the server using UDP until terminated -DY
 void sendMessageToServer_udp(int sockfd, struct sockaddr_in server) {
 	char buf[256];
 	socklen_t clilen = sizeof(struct sockaddr_in);

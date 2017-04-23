@@ -1,3 +1,9 @@
+// file: client_functions.c
+// authors: DY TD SW SA AK JA
+// date: 04/20/2017
+// purpose: CS 3376 - 502
+// description: contains functions necessary for the client
+
 #include <string.h>
 #include <sys/types.h>
 #include <sys/socket.h>

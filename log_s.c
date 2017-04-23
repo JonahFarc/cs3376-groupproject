@@ -1,3 +1,8 @@
+// file: client.c
+// authors: DY TD SW SA AK JA
+// date: 04/20/2017
+// purpose: CS 3376 - 502
+// description: A server that logs messages sent
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
