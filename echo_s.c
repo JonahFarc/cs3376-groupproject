@@ -8,11 +8,11 @@ int echoResult_tcp(char buf[256], int sockfd, struct sockaddr_in response) {
 	setupLogServer(&sockfd_log, &log_addr, LOGPORT);
 	char loginfo[256] = {0};
 
-	printf("Received via TCP: %s", buf);
+	printf("\nReceived via TCP: %s", buf);
 	while (1) {
 		bzero(loginfo, 256);
 		strcpy(loginfo, "\"");
-		strncpy(loginfo, buf, strlen(buf) - 1);
+		strncat(loginfo, buf, strlen(buf) - 1);
 		strcat(loginfo, "\" recieved from ");
 		strcat(loginfo, inet_ntoa(response.sin_addr));
 		printf("Sending message back and logging...\n");
@@ -40,11 +40,11 @@ int echoResult_udp(char buf[256], int sockfd, struct sockaddr_in response) {
 	char loginfo[256] = {0};
 	socklen_t clilen = sizeof(struct sockaddr_in);
 
-	printf("Received via UDP: %s", buf);
+	printf("\nReceived via UDP: %s", buf);
 	while (1) {
 		bzero(loginfo, 256);
 		strcpy(loginfo, "\"");
-		strncpy(loginfo, buf, strlen(buf) - 1);
+		strncat(loginfo, buf, strlen(buf) - 1);
 		strcat(loginfo, "\" recieved from ");
 		strcat(loginfo, inet_ntoa(response.sin_addr));
 		printf("Sending message back and logging...\n");
