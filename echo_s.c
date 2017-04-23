@@ -1,6 +1,6 @@
 #include "server_functions.c"
 #include "log_s.c"
-#define LOGPORT 9998
+#define LOGPORT 9997
 
 int echoResult_tcp(char buf[256], int sockfd, struct sockaddr_in response) {
 	int sockfd_log;
@@ -26,7 +26,7 @@ int echoResult_tcp(char buf[256], int sockfd, struct sockaddr_in response) {
 			error("ERROR recv");
 		else if (response == 0)
 			break;
-		printf("Received via TCP: %s", buf);
+		printf("\nReceived via TCP: %s", buf);
 	}
 	close(sockfd_log);
 	return 0;
@@ -55,7 +55,7 @@ int echoResult_udp(char buf[256], int sockfd, struct sockaddr_in response) {
 		bzero(buf, 256);
 		if (recvfrom(sockfd, buf, 256, 0, (struct sockaddr*)&response, &clilen) < 0)
 			error("ERROR recvfrom");
-		printf("Recieved via UDP: %s", buf);
+		printf("\nRecieved via UDP: %s", buf);
 	}
 	close(sockfd_log);
 	return 0;
