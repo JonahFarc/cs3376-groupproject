@@ -1,4 +1,4 @@
-// file: client.c
+// file: log_s.c
 // authors: DY TD SW SA AK JA
 // date: 04/20/2017
 // purpose: CS 3376 - 502
