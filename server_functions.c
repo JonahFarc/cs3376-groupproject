@@ -20,7 +20,7 @@ void error(const char *msg)
     perror(msg);
     exit(1);
 }
-
+//JA: terminates any active children.
 void exitTCPServer(int sig) {
 	static int pids[10] = {0};
 	static int counter = 0;
@@ -48,7 +48,7 @@ void initializeAddrStruct(struct sockaddr_in *serv_addr, int portno) {
 	(*serv_addr).sin_addr.s_addr = INADDR_ANY;
 	(*serv_addr).sin_port = htons(portno);
 }
-
+//JA: binds the server address to the socket file discriptors for both tcp and udp.
 void bindAll(int *sockfd_tcp, int *sockfd_udp, struct sockaddr_in *serv_addr) {
 	if (bind(*sockfd_tcp, (struct sockaddr *) serv_addr,
 		  sizeof(*serv_addr)) < 0) 
@@ -57,7 +57,7 @@ void bindAll(int *sockfd_tcp, int *sockfd_udp, struct sockaddr_in *serv_addr) {
 		  sizeof(*serv_addr)) < 0) 
 		  error("ERROR on binding");
 }
-
+//JA: sets up the server used for logging messages from the echo server.
 void setupLogServer(int *sockudp, struct sockaddr_in *serv_addr, int portno) {
 	if ((*sockudp = socket(AF_INET, SOCK_DGRAM, 0)) < 0)
 		error("ERROR opening socket");
