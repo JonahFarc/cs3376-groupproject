@@ -31,7 +31,6 @@ int startLogServer(int portno){
 	  error("ERROR BINDIN UDP FOR LOG SERVER");
 	//TD: continuous loop that will receieve UDP messages
 	udp_loop(sockfd);
-	
 	close(sockfd);
 }
 
@@ -40,7 +39,7 @@ void *SigCatcher(int n)
 {
   wait3(NULL,WNOHANG,NULL);
 }
-
+//SW: loops listens on "portno" and send message to function "writetofile"
 void udp_loop(int udp_sockfd)
 {
       int n;
@@ -59,14 +58,15 @@ void udp_loop(int udp_sockfd)
 		     signal(SIGCHLD,SigCatcher);
       }
 }
-
+//SW: function to write to file
+//function accepts "buf", the message and ip address, and write to file "echo.log"
 void writetofile(char buf[1024])
 {
 	FILE *fw;
-	fw = fopen("echo.log", "a");
+	fw = fopen("echo.log", "a"); //SW: makes echo.log it if does not exist, append to it if it does
 	time_t ti = time(NULL);
-	struct tm t = *localtime(&ti);
-	fprintf(fw,"%d-%d-%d %d:%d:%d\t%s\n", t.tm_year+1900, t.tm_mon+1, t.tm_mday, t.tm_hour, t.tm_min, t.tm_sec, buf);
-	fclose(fw);
+	struct tm t = *localtime(&ti); //SW: get the time 
+	fprintf(fw,"%d-%d-%d %d:%d:%d\t%s\n", t.tm_year+1900, t.tm_mon+1, t.tm_mday, t.tm_hour, t.tm_min, t.tm_sec, buf); //SW: write date, message, and ipaddress to file
+	fclose(fw); //SW: save file
 }
 

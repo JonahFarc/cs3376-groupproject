@@ -20,10 +20,10 @@ int echoResult_tcp(char buf[256], int sockfd, struct sockaddr_in response) {
 	printf("\nReceived via TCP: %s", buf);
 	while (1) {
 		bzero(loginfo, 256);
-		strcpy(loginfo, "\"");
-		strncat(loginfo, buf, strlen(buf) - 1);
-		strcat(loginfo, "\" recieved from ");
-		strcat(loginfo, inet_ntoa(response.sin_addr));
+		strcpy(loginfo, "\""); //SW: add begining quote to message
+		strncat(loginfo, buf, strlen(buf) - 1); //SW: append message received via TCP
+		strcat(loginfo, "\" recieved from "); //SW: add end quote to message
+		strcat(loginfo, inet_ntoa(response.sin_addr)); //SW: append ip address
 		printf("Sending message back and logging...\n");
 		if (sendto(sockfd_log, loginfo, strlen(loginfo), 0, (struct sockaddr*)&log_addr, sizeof(struct sockaddr_in)) < 0)
 			error("ERROR sendto");
@@ -53,10 +53,10 @@ int echoResult_udp(char buf[256], int sockfd, struct sockaddr_in response) {
 	printf("\nReceived via UDP: %s", buf);
 	while (1) {
 		bzero(loginfo, 256);
-		strcpy(loginfo, "\"");
-		strncat(loginfo, buf, strlen(buf) - 1);
-		strcat(loginfo, "\" recieved from ");
-		strcat(loginfo, inet_ntoa(response.sin_addr));
+		strcpy(loginfo, "\""); //SW: add begining quote to message
+		strncat(loginfo, buf, strlen(buf) - 1); //SW: append message received via UDP
+		strcat(loginfo, "\" recieved from "); //SW: add end quote to message
+		strcat(loginfo, inet_ntoa(response.sin_addr)); //SW: append ip address
 		printf("Sending message back and logging...\n");
 		if (sendto(sockfd_log, loginfo, strlen(loginfo), 0, (struct sockaddr*)&log_addr, clilen) < 0)
 			error("ERROR sendto");
@@ -70,20 +70,20 @@ int echoResult_udp(char buf[256], int sockfd, struct sockaddr_in response) {
 	close(sockfd_log);
 	return 0;
 }
-
+//SW: main accepts up to 3 port numbers and start a TCP/UDP server for each
 int main(int argc, char *argv[])
 {
-	if (argc > 4 || argc < 2) {
+	if (argc > 4 || argc < 2) { //SW: make 1-3 port numbers are provided
 		error("Please provide up to 3 ports to monitor like so: ./server port1 port2 port3 (eg. ./server 1000, 1001, 1002)");
 		return 1;
 	}
 	if (fork() == 0)
 		startLogServer(LOGPORT);
-	else if (argc > 3 && fork() == 0)
+	else if (argc > 3 && fork() == 0) //SW:if 3 port numbers given, start server three 
 		startServer(atoi(argv[3]), echoResult_tcp, echoResult_udp);
-	else if (argc > 2 && fork() == 0)
+	else if (argc > 2 && fork() == 0) //SW:if 2 port numbers given, start server two
 		startServer(atoi(argv[2]), echoResult_tcp, echoResult_udp);
-	else
+	else //SW: start server one
 		startServer(atoi(argv[1]), echoResult_tcp, echoResult_udp);
     return 0; 
 }

@@ -17,4 +17,4 @@ Purpose:
     echo_s will then forward a record of the messages it receives to the "log_s" server. log_s will then log this information in a log file "echo.log" 
     
 Description:
-    extract files and run makefile dumby
+    extract files and run makefile dumby, make sure to use "netstat -an" to find an open port #.
