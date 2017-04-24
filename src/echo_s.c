@@ -34,9 +34,9 @@ int main(int argc, char *argv[])
 		startServer(atoi(argv[1]), echoResult_tcp, echoResult_udp);
 
 	for (int i = 0; i < 3; i++) {
-		waitpid(pids[i], &status, 0);
-		if (WEXITSTATUS(status) != 0)
-			kill(logPid, SIGKILL);
+		if (pids[i] != 0)
+			waitpid(pids[i], &status, 0);
 	}
+	kill(logPid, SIGTERM);
     return 0; 
 }

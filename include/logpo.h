@@ -2,6 +2,6 @@
 #ifndef LOGPO_H
 #define LOGPO_H
 
-#define LOGPORT 9999
+#define LOGPORT 9899
 
 #endif
