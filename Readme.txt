@@ -9,7 +9,7 @@ Authors (initials):
     Seong Ioi Wang (SW)
     Dylan Yu (DY)
     
-Files in zip: echo_c.c, client_functions.c, echo_s.c, server_functions.c, logpo.h, echo.log, Makefile, and readme.txt
+Files in zip: obj/* (empty directory, for linking objects), src/* (source files), include/* (header files), Makefile, Readme.txt, echo.log
 
 Purpose:
     Create a "echo_s" executable that accepts TCP/UDP messages and a "echo_c" executable that sends messages to this server. The server (echo_s) should then reply to the client with the same message it receives.
