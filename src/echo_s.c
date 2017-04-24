@@ -13,13 +13,14 @@
 //SW: Accepts up to 3 port numbers and forks a TCP/UDP server for each
 int main(int argc, char *argv[])
 {
+	int logPid;
 	//SW: Ensures correct usage
 	if (argc > 4 || argc < 2) 
 	{ 
 		error("Please provide up to 3 ports to monitor like so: ./server port1 port2 port3 (eg. ./server 1000, 1001, 1002)");
 		return 1;
 	}
-	if (fork() == 0) startLogServer(LOGPORT);
+	if ((logPid = fork()) == 0) startLogServer(LOGPORT);
 	//SW:if 3 port numbers given, start server three 
 	else if (argc > 3 && fork() == 0) 
 		startServer(atoi(argv[3]), echoResult_tcp, echoResult_udp);
@@ -29,5 +30,7 @@ int main(int argc, char *argv[])
 	//SW: start server one
 	else 
 		startServer(atoi(argv[1]), echoResult_tcp, echoResult_udp);
+
+	kill(SIGTERM, logPid);
     return 0; 
 }
