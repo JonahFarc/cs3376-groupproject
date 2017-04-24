@@ -8,7 +8,7 @@ CC = gcc
 
 all: echo_s echo_c
 
-echo_s: echo_s.c server_functions.c log_s.c
+echo_s: echo_s.c server_functions.c log_s.c logpo.h
 	$(CC) $(FLAGS) -o echo_s echo_s.c
 
 echo_c: echo_c.c client_functions.c
