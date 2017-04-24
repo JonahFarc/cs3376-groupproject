@@ -43,6 +43,7 @@ void udp_loop(int udp_sockfd)
 	fromlen = sizeof(struct sockaddr_in);
 	while(1)
 	{
+	   bzero(buf, 1024);
 	   n = recvfrom(udp_sockfd,buf,1024,0,(struct sockaddr *)&from,&fromlen);
 	   if(n<0) error("ERROR recvfrom");
 			write(1,buf,n);
@@ -63,7 +64,7 @@ void writetofile(char buf[1024])
 	time_t ti = time(NULL);
 	//SW: get the time 
 	struct tm t = *localtime(&ti); 
-	fprintf(fw,"%d-%d-%d %d:%d:%d\t%s\n", t.tm_year+1900, t.tm_mon+1, t.tm_mday, t.tm_hour, t.tm_min, t.tm_sec, buf); //SW: write date, message, and ipaddress to file
+	fprintf(fw,"\n%d-%d-%d %d:%d:%d\t%s", t.tm_year+1900, t.tm_mon+1, t.tm_mday, t.tm_hour, t.tm_min, t.tm_sec, buf); //SW: write date, message, and ipaddress to file
 	//SW: save file
 	fclose(fw); 
 }
