@@ -21,9 +21,6 @@
 //SA: Issued when a system call fails. Displays error message and aborts
 void error(const char*);
 
-//SA/JA: Gets all server TCP forks and terminates them 
-void exitTCPServer(int);
-
 //TD: initializes the TCP and UDP sockets
 void intializeSockets(int*, int*);
 
