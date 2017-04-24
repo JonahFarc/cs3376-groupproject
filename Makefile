@@ -11,8 +11,13 @@ CC = gcc
 
 all: echo_s echo_c
 
+<<<<<<< HEAD
 echo_s: $(OBJS_SERVER)
 	$(CC) $(LDFLAGS) echo_s $(OBJS_SERVER)
+=======
+echo_s: echo_s.c server_functions.c log_s.c logpo.h
+	$(CC) $(FLAGS) -o echo_s echo_s.c
+>>>>>>> 8061160764678c01e0641a93ba1f4990b946aa1b
 
 echo_c: $(OBJS_CLIENT)
 	$(CC) $(LDFLAGS) echo_c $(OBJS_CLIENT)	
