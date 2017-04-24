@@ -18,4 +18,4 @@ Purpose:
     log_s's port number is centrally defined in logpo.h 
     
 Description:
-    Extract files and run makefile. Make sure to use "netstat -an" to find an open port number (if ports are already being used, the server will consider it a user error and fail). Issue command "TERM" on the command line once the program is running to terminate the server safely. 
+    Extract files and run makefile. Make sure to use "netstat -an" to find an open port number (if ports are already being used, the server will consider it a user error and fail). Issue the kill sequence (Ctr-c) on the command line once the program is running to terminate the server safely. 
