@@ -1,4 +1,4 @@
-// file: server_functions.c
+// file: server_functions.h
 // authors: DY TD SW SA AK JA
 // date: 04/20/2017
 // purpose: CS 3376 - 502
