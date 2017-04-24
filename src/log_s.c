@@ -27,12 +27,6 @@ int startLogServer(int portno)
 	return 0;
 }
 
-//TD: handles zombies
-void SigCatcher(int n)
-{
-	wait3(NULL,WNOHANG,NULL);
-}
-
 //SW: loops listens on "portno" and send message to function "writetofile"
 void udp_loop(int udp_sockfd)
 {
@@ -50,7 +44,6 @@ void udp_loop(int udp_sockfd)
 	   //TD: writes to the echo.log file and passes the message
 	   writetofile(buf);
 	   if(n<0) error("ERROR sendto");
-		     signal(SIGCHLD,SigCatcher);
 	}
 }
 
@@ -68,4 +61,3 @@ void writetofile(char buf[1024])
 	//SW: save file
 	fclose(fw); 
 }
-

@@ -14,6 +14,8 @@
 int main(int argc, char *argv[])
 {
 	int logPid;
+	int pids[3] = {0};
+	int status;
 	//SW: Ensures correct usage
 	if (argc > 4 || argc < 2) 
 	{ 
@@ -22,15 +24,19 @@ int main(int argc, char *argv[])
 	}
 	if ((logPid = fork()) == 0) startLogServer(LOGPORT);
 	//SW:if 3 port numbers given, start server three 
-	else if (argc > 3 && fork() == 0) 
+	else if (argc > 3 && (pids[0] = fork()) == 0) 
 		startServer(atoi(argv[3]), echoResult_tcp, echoResult_udp);
 	//SW:if 2 port numbers given, start server two
-	else if (argc > 2 && fork() == 0) 
+	else if (argc > 2 && (pids[1] = fork()) == 0) 
 		startServer(atoi(argv[2]), echoResult_tcp, echoResult_udp);
 	//SW: start server one
-	else 
+	else if ((pids[2] = fork()) == 0)
 		startServer(atoi(argv[1]), echoResult_tcp, echoResult_udp);
 
-	kill(logPid, SIGTERM);
+	for (int i = 0; i < 3; i++) {
+		waitpid(pids[i], &status, 0);
+		if (WEXITSTATUS(status) != 0)
+			kill(logPid, SIGKILL);
+	}
     return 0; 
 }
