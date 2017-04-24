@@ -16,6 +16,12 @@
 //SA: Issued when a system call fails. Displays error message and aborts
 void error(const char*);
 
+//Sends messages to the server using TCP until terminated -DY
+void sendMessageToServer_tcp(int);
+
+//Sends messages to the server using UDP until terminated -DY
+void sendMessageToServer_udp(int, struct sockaddr_in);
+
 //TD: connects the client for TCP
 int clientConnect_tcp(char*, int, void callback(int));
 
