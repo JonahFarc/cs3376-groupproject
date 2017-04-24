@@ -1,18 +1,24 @@
 #Makefile for Semester Project Deliverable 2
-#One-step compilation
+#Two-step compilation
 #Created 4/23/2017
 
 SHELL = /bin/sh
-FLAGS = -Wall -g -std=c99
+OBJS_SERVER = $(patsubst %.o, obj/%.o, echo_s.o log_s.o server_functions.o)
+OBJS_CLIENT = $(patsubst %.o, obj/%.o, echo_c.o client_functions.o)
+LDFLAGS = -o 
+CPPFLAGS = -Wall -g -std=c99 -Iinclude -c
 CC = gcc
 
 all: echo_s echo_c
 
-echo_s: echo_s.c server_functions.c log_s.c
-	$(CC) $(FLAGS) -o echo_s echo_s.c
+echo_s: $(OBJS_SERVER)
+	$(CC) $(LDFLAGS) echo_s $(OBJS_SERVER)
 
-echo_c: echo_c.c client_functions.c
-	$(CC) $(FLAGS) -o echo_c echo_c.c	
+echo_c: $(OBJS_CLIENT)
+	$(CC) $(LDFLAGS) echo_c $(OBJS_CLIENT)	
+
+obj/%.o: src/%.c 
+	$(CC) $(CPPFLAGS) -o $@ $<
 
 clean:
-	rm -f core echo_s echo_c
+	rm -f core echo_s echo_c obj/*.o
