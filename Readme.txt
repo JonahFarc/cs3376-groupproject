@@ -2,7 +2,7 @@ Semester Project, Second Deliverable
 Due: 4/23/17
 
 Authors (initials):
-    Asadullah Khan  (AK)
+    Asad-ullah Khan  (AK)
     James Anserson (JA)
     Salman Anwer (SA)
     Tiffany Do (TD)
