@@ -20,6 +20,47 @@ void error(const char *msg)
     exit(0);
 }
 
+//Sends messages to the server using TCP until terminated -DY
+void sendMessageToServer_tcp(int sockfd) 
+{
+    char buf[256];
+    while (1) {
+        printf("Please enter the message: ");
+        bzero(buf, 256);
+        fgets(buf, 255, stdin);
+        if (send(sockfd, buf, strlen(buf), 0) < 0)
+            error("ERROR writing to socket");
+        int response = recv(sockfd, buf, strlen(buf), 0);
+        if (response < 0)
+            error("ERROR recv");
+        else if (response == 0)
+            break;
+        printf("Recieved echo back: %s", buf);
+    }
+    close(sockfd);
+}
+
+//Sends messages to the server using UDP until terminated -DY
+void sendMessageToServer_udp(int sockfd, struct sockaddr_in server) 
+{
+    char buf[256];
+    socklen_t clilen = sizeof(struct sockaddr_in);
+    while(1) {
+        printf("Please enter the message: ");
+        bzero(buf, 256);
+        fgets(buf, 255, stdin);
+        if (sendto(sockfd, buf, strlen(buf), 0, (struct sockaddr*)&server, sizeof(struct sockaddr_in)) < 0)
+            error("ERROR writing to socket");
+        int response = recvfrom(sockfd, buf, 256, 0, (struct sockaddr*)&server, &clilen);
+        if (response < 0) 
+            error("ERROR recvfrom");
+        else if (response == 0)
+            break;
+        printf("Recieved echo back: %s", buf);
+    }
+    close(sockfd);
+}
+
 //TD: connects the client for TCP
 int clientConnect_tcp(char* host, int portno, void callback(int)) 
 {
