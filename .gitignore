@@ -1,3 +1,4 @@
 echo_s
 echo_c
 obj/*
+.nfs*
