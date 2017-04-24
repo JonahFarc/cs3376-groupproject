@@ -3,10 +3,14 @@
 // date: 04/20/2017
 // purpose: CS 3376 - 502
 // description: contains functions necessary for the client
+#ifndef CLIENT_FUNCTION_H
+#define CLIENT_FUNCTION_H
 
 #include <string.h>
+#include <strings.h>
 #include <sys/types.h>
 #include <sys/socket.h>
+#include <sys/wait.h>
 #include <netinet/in.h>
 #include <netdb.h> 
 #include <stdio.h>
@@ -27,3 +31,5 @@ int clientConnect_tcp(char*, int, void callback(int));
 
 //SA: Handles UDP client connections. Connects to the port# passed in
 int clientConnect_udp(char*, int, void callback(int, struct sockaddr_in));
+
+#endif

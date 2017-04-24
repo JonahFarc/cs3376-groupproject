@@ -6,7 +6,7 @@ SHELL = /bin/sh
 OBJS_SERVER = $(patsubst %.o, obj/%.o, echo_s.o log_s.o server_functions.o)
 OBJS_CLIENT = $(patsubst %.o, obj/%.o, echo_c.o client_functions.o)
 LDFLAGS = -o 
-CPPFLAGS = -Wall -g -std=c99 -Iinclude -c
+CPPFLAGS = -Wall -g -std=gnu99 -Iinclude -c
 CC = gcc
 
 all: echo_s echo_c

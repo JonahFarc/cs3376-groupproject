@@ -3,10 +3,13 @@
 // date: 04/20/2017
 // purpose: CS 3376 - 502
 // description: Contains functions necessary for the echo server
+#ifndef SERVER_FUNCTIONS_H
+#define SERVER_FUNCTIONS_H
 
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include <strings.h>
 #include <unistd.h>
 #include <sys/types.h> 
 #include <sys/socket.h>
@@ -44,3 +47,5 @@ int echoResult_tcp(char buf[256], int sockfd, struct sockaddr_in response);
 // then handles safe termination of all server resources 	
 int startServer(int, int callback_tcp(char[256], int, struct sockaddr_in),
 				int callback_udp(char[256], int, struct sockaddr_in));
+
+#endif

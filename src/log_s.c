@@ -24,10 +24,11 @@ int startLogServer(int portno)
 	//TD: continuous loop that will receieve UDP messages
 	udp_loop(sockfd);
 	close(sockfd);
+	return 0;
 }
 
 //TD: handles zombies
-void *SigCatcher(int n)
+void SigCatcher(int n)
 {
 	wait3(NULL,WNOHANG,NULL);
 }

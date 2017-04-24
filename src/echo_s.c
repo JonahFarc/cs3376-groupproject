@@ -31,6 +31,6 @@ int main(int argc, char *argv[])
 	else 
 		startServer(atoi(argv[1]), echoResult_tcp, echoResult_udp);
 
-	kill(SIGTERM, logPid);
+	kill(logPid, SIGTERM);
     return 0; 
 }
