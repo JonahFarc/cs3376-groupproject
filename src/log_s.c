@@ -40,7 +40,7 @@ void udp_loop(int udp_sockfd)
 	   bzero(buf, 1024);
 	   n = recvfrom(udp_sockfd,buf,1024,0,(struct sockaddr *)&from,&fromlen);
 	   if(n<0) error("ERROR recvfrom");
-			write(1,buf,n);
+			printf("%s", buf);
 	   //TD: writes to the echo.log file and passes the message
 	   writetofile(buf);
 	   if(n<0) error("ERROR sendto");
