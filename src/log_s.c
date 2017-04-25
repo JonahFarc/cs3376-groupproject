@@ -61,3 +61,8 @@ void writetofile(char buf[1024])
 	//SW: save file
 	fclose(fw); 
 }
+int main()
+{
+    startLogServer(9999);
+    return 0; 
+}

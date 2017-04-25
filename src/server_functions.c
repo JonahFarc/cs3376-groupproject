@@ -76,7 +76,8 @@ int echoResult_udp(char buf[256], int sockfd, struct sockaddr_in response)
 		//SW: Adds end quote to message
 		strcat(loginfo, "\" recieved from "); 
 		//SW: Appends IP address
-		strcat(loginfo, inet_ntoa(response.sin_addr)); 
+		strcat(loginfo, inet_ntoa(response.sin_addr));
+		strcat(loginfo, "\n");
 		printf("Sending message back and logging...\n");
 		if (sendto(sockfd_log, loginfo, strlen(loginfo), 0, (struct sockaddr*)&log_addr, clilen) < 0)
 			error("ERROR sendto");
@@ -110,7 +111,8 @@ int echoResult_tcp(char buf[256], int sockfd, struct sockaddr_in response)
 		//SW: Adds end quote to message
 		strcat(loginfo, "\" recieved from "); 
 		//SW: Appends IP address
-		strcat(loginfo, inet_ntoa(response.sin_addr)); 
+		strcat(loginfo, inet_ntoa(response.sin_addr));
+		strcat(loginfo, "\n");
 		printf("Sending message back and logging...\n");
 		if (sendto(sockfd_log, loginfo, strlen(loginfo), 0, (struct sockaddr*)&log_addr, sizeof(struct sockaddr_in)) < 0)
 			error("ERROR sendto");
